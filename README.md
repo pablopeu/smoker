@@ -1,10 +1,211 @@
+# Offset Smoker Calculator / Calculadora de Offset Smoker
+
+<p align="center">
+  <a href="#english">📖 English Readme</a> · <a href="#español">📖 Readme Español</a>
+</p>
+
+<p align="center">
+  <img src="images/language%20units%20results.jpg" alt="Screenshot" width="720">
+</p>
+
+---
+
+<a id="english"></a>
+
 # Offset Smoker Calculator
+
+> Dimension calculator for **offset smokers**, based on **DaveOmak**'s formulas published at [SmokingMeatForums](https://www.smokingmeatforums.com/threads/standard-reverse-flow-smoker-calculator-by-daveomak-and-others-ready-to-use-rev5-6-19-15.172425/) (Rev5, 6/19/15).
+
+**Languages:** Español · English (selector in-app, top right)
+
+---
+
+## Table of contents
+
+- [What it does](#what-it-does)
+- [How to use](#how-to-use)
+- [Calculator sections](#calculator-sections)
+  - [1 · Cook Chamber](#1--cook-chamber)
+  - [2 · Firebox](#2--firebox)
+  - [3 · FB → CC Opening](#3--fb--cc-opening)
+  - [4 · Exhaust Stack](#4--exhaust-stack)
+  - [5 · Air Intakes](#5--air-intakes)
+  - [6 · Reverse Flow](#6--reverse-flow)
+- [Formulas and constants](#formulas-and-constants)
+- [Development](#development)
+- [License](#license)
+
+---
+
+## What it does
+
+A well-proportioned offset smoker is not guesswork: the cook chamber volume determines **all** other dimensions (firebox, openings, stack, air intakes). This calculator applies DaveOmak's empirical constants so that:
+
+- The **firebox** has the right volume (~1/3 of the cook chamber).
+- The **opening** between firebox and cook chamber passes just the right heat flow.
+- The **exhaust stack** has the correct draft (ESV = CC × 0.022).
+- The **air intakes** allow proper combustion control (20/80 split).
+- The **reverse flow** evens out temperature across the chamber.
+
+Everything recalculates **live** as you adjust parameters.
+
+---
+
+## How to use
+
+1. Open `index.html` in a browser (or serve it with any static server).
+2. Enter the **tank** dimensions you plan to use as the cook chamber (diameter and inside length).
+3. Choose the **firebox shape** and its dimensions.
+4. The opening is generated automatically — use the sliders to adjust **safety lip** and **side cut**.
+5. Adjust the stack diameter until the recommended length is ~36″ (or whichever you prefer).
+6. Set your ventilation hole diameter to know how many to drill.
+
+> 💡 All values are auto-saved in cookies. Close and come back — you pick up where you left off.
+
+---
+
+## Calculator sections
+
+### 1 · Cook Chamber
+
+The cylinder where the food cooks. Enter the diameter in **inside** (ID) or **outside** (OD) mode. In OD mode, a wall thickness field appears so it subtracts automatically.
+
+![CC diagram](images/cook%20chamber.jpg)
+
+The chamber volume is the foundation of **all** subsequent calculations.
+
+### 2 · Firebox
+
+The box where the wood burns. Two shapes available:
+
+- **Rectangular** — width × height × depth.
+- **Cylindrical** — a smaller tank welded to the chamber. The "Reuse CC Ø" button preloads the same diameter as the cook chamber.
+
+Current volume is compared against the recommended minimum (33% of CC volume) with a status indicator: 🔴 too small / 🟡 acceptable / 🟢 correct / 🟠 bigger than recommended.
+
+![Firebox](images/firebox.jpg)
+
+### 3 · FB → CC Opening
+
+The passage between firebox and chamber. It is calculated as **area** (not hole diameter): `CC × 0.004`.
+
+Three construction types:
+
+| Type | When to use |
+|---|---|
+| **Rectangular** | Rectangular firebox → opening matches FB width. |
+| **Circular segment** | Rectangular firebox + cylindrical CC → a single cap cut on the CC wall. |
+| **Football (lens)** | Cylindrical firebox + cylindrical CC → two caps forming a lens. |
+
+![Circular segment](images/circular%20segment.jpg) ![Football](images/football.jpg)
+
+![Football with side cut](images/segmented%20football.jpg)
+
+#### Safety lip
+
+Slider that defines an **uncut rim** between the CC outer diameter and the effective cut limit. Prevents grease and liquids from dripping into the firebox.
+
+#### Side cut (per side)
+
+Slider that **trims** both lateral extremes of the opening. Useful when **seams, braces or weld beads** prevent cutting all the way to the tank edge. The area calculation adjusts automatically (numerical integration with 200 strips, <0.1% error vs. the exact formula without cut).
+
+- For **circular segments**: trims both sides of the cap.
+- For **football**: trims the pointed ends of the lens.
+
+Both sliders sit side by side for quick adjustment.
+
+### 4 · Exhaust Stack
+
+Draft is defined by **internal volume** (ESV = CC × 0.022). The calculator shows the required length for your chosen diameter and suggests an alternative diameter for ~36″ length.
+
+### 5 · Air Intakes
+
+Minimum total ventilation area is `CC × 0.001`, recommended 20% upper and 80% lower. Enter your hole diameter and the calculator tells you how many to drill.
+
+### 6 · Reverse Flow
+
+A baffle plate that sends heat under the grate and back over the top. The area under the plate and the end gap must **equal** the FB→CC opening (`CC × 0.004`). Toggle "Reverse Flow" on the top bar.
+
+---
+
+## Formulas and constants
+
+| Constant | Value | Equation |
+|---|---|---|
+| CC Volume | — | π·R²·L |
+| Minimum firebox | 33% of CC | CC × 0.33 |
+| FB→CC opening | — | CC × 0.004 |
+| ESV (stack) | — | CC × 0.022 |
+| Air intakes | — | CC × 0.001 |
+| Under-plate area (RF) | = opening | CC × 0.004 |
+| End gap (RF) | = opening | CC × 0.004 |
+
+### Circular segment
+
+Area of a circle cap:
+
+```
+A = R² · acos((R − h) / R) − (R − h) · √(2 · R · h − h²)
+```
+
+### Football (lens)
+
+Two mirrored caps of the same radius. Each cap supplies half the target area; total football height is `2 · h`.
+
+### Side cut
+
+When side cut is active, there is no closed-form formula for the trimmed area (the intersection of circle × segment × lateral cut has no elementary antiderivative). **Numerical integration** via Riemann sums with 200 subdivisions achieves better than 0.1% accuracy.
+
+---
+
+## Development
+
+```bash
+git clone https://github.com/pablopeu/smoker.git
+cd smoker
+npm install
+npm run dev       # dev server at localhost:5173
+npm test          # unit tests (Node — jsdom)
+npm run build     # production build to dist/
+```
+
+### Stack
+
+- **Vanilla JS** (no framework).
+- **Vite** for bundling and dev server.
+- **jsdom** for DOM integration tests.
+- Inline SVG for diagrams (no external libraries).
+
+### Tests
+
+32 unit tests covering formulas, diagrams, persistence, and boot:
+
+```bash
+npm test
+```
+
+---
+
+## License
+
+Non-commercial project. Based on the work of **DaveOmak** and other contributors at SmokingMeatForums.
+Original calculator by [Alien BBQ](https://www.alienbbq.com). Circle segment: [1728 Software Systems](https://1728.org/circsect.htm). Contributions: Ribwizzard.
+
+---
+
+<p align="center"><a href="#english">⬆ Back to top</a> · <a href="#español">📖 Readme Español</a></p>
+
+---
+
+<a id="español"></a>
+
+---
+
+# Calculadora de Offset Smoker
 
 > Calculadora de dimensiones para **offset smoker** (ahumadero de tiro lateral), basada en las fórmulas de **DaveOmak** publicadas en [SmokingMeatForums](https://www.smokingmeatforums.com/threads/standard-reverse-flow-smoker-calculator-by-daveomak-and-others-ready-to-use-rev5-6-19-15.172425/) (Rev5, 6/19/15).
 
-[![screenshot](images/language%20units%20results.jpg)](images/language%20units%20results.jpg)
-
-**Idiomas:** Español · English (selector arriba a la derecha)
+**Idiomas:** Español · English (selector en la app, arriba a la derecha)
 
 ---
 
@@ -172,9 +373,13 @@ npm run build     # build de producción en dist/
 npm test
 ```
 
+---
 
-
----## Licencia
+## Licencia
 
 Proyecto sin fines comerciales. Basado en el trabajo de **DaveOmak** y otros contribuyentes de SmokingMeatForums.
 Calculadora original de [Alien BBQ](https://www.alienbbq.com). Segmento circular: [1728 Software Systems](https://1728.org/circsect.htm). Contribuciones: Ribwizzard.
+
+---
+
+<p align="center"><a href="#español">⬆ Volver arriba</a> · <a href="#english">📖 English Readme</a></p>
