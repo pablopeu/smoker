@@ -121,6 +121,8 @@ const dict = {
     'stack.esv': 'Volumen interno requerido (ESV)',
     'stack.length': 'Largo necesario',
     'stack.target': 'Para un largo de ~36″ usá Ø {d}',
+    'stack.range': 'Rango válido de Ø: {lo}–{hi}',
+    'stack.clamped': '⚠ Ø ajustado a {d} — fuera del rango razonable ({lo}–{hi})',
     'stack.note':
       'Una chimenea de mayor diámetro requiere menor altura para obtener el mismo volumen interno.',
 
@@ -129,6 +131,8 @@ const dict = {
     'intake.split': 'Recomendado: {u} arriba · {l} abajo (20/80)',
     'intake.holeDia': 'Diámetro de cada agujero',
     'intake.holes': 'Agujeros necesarios',
+    'intake.range': 'Rango válido de Ø: {lo}–{hi}',
+    'intake.clamped': '⚠ Ø ajustado a {d} — fuera del rango razonable ({lo}–{hi})',
     'intake.sideCap': 'Vista lateral',
     'intake.frontCap': 'Vista frontal',
 
@@ -308,12 +312,16 @@ const dict = {
     'stack.esv': 'Required internal volume (ESV)',
     'stack.length': 'Required length',
     'stack.target': 'For a ~36″ length use Ø {d}',
+    'stack.range': 'Valid Ø range: {lo}–{hi}',
+    'stack.clamped': '⚠ Ø adjusted to {d} — outside the reasonable range ({lo}–{hi})',
     'stack.note': 'A larger-diameter stack needs less height for the same internal volume.',
 
     'intake.area': 'Total minimum area',
     'intake.split': 'Recommended: {u} upper · {l} lower (20/80)',
     'intake.holeDia': 'Diameter of each hole',
     'intake.holes': 'Holes needed',
+    'intake.range': 'Valid Ø range: {lo}–{hi}',
+    'intake.clamped': '⚠ Ø adjusted to {d} — outside the reasonable range ({lo}–{hi})',
     'intake.sideCap': 'Side view',
     'intake.frontCap': 'Front view',
 

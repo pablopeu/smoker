@@ -10,6 +10,9 @@
 export const STACK_VOLUME_FACTOR = 0.022;
 export const CIRCLE_AREA_FACTOR = 0.7854; // π/4
 export const TARGET_STACK_LENGTH = 36; // largo objetivo recomendado (in)
+// Rangos razonables de largo de chimenea (in). Fuera de esto no tiene sentido físico.
+export const MIN_STACK_LENGTH = 12; // ~300 mm (chimenea corta)
+export const MAX_STACK_LENGTH = 60; // ~1500 mm (chimenea muy alta)
 
 /** Volumen interno requerido de la chimenea (ESV, in³). */
 export function stackVolume(ccVolumeCuIn) {
@@ -26,4 +29,15 @@ export function stackLength(esvCuIn, diameterIn) {
 export function stackDiameterForLength(esvCuIn, lengthIn) {
   if (!(lengthIn > 0)) return 0;
   return Math.sqrt((esvCuIn || 0) / (CIRCLE_AREA_FACTOR * lengthIn));
+}
+
+/** Diámetro MÍNIMO aceptable: el que produce el largo MÁXIMO (60″). Por debajo, la
+ *  chimenea queda absurdamente alta. */
+export function stackDiaMin(esvCuIn) {
+  return stackDiameterForLength(esvCuIn, MAX_STACK_LENGTH);
+}
+/** Diámetro MÁXIMO aceptable: el que produce el largo MÍNIMO (12″). Por encima, queda
+ *  un caño gordo y enano que no tira. */
+export function stackDiaMax(esvCuIn) {
+  return stackDiameterForLength(esvCuIn, MIN_STACK_LENGTH);
 }

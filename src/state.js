@@ -201,11 +201,25 @@ export function derive(s = state) {
   const footballCenterDist = Math.max(0, 2 * (footballR - fh));
 
   const esv = stack.stackVolume(ccVol);
-  const stackLen = stack.stackLength(esv, s.stackDia);
+  // Chimenea: el diámetro se acota al rango que produce un largo razonable
+  // (12″–60″). Fuera de eso no tiene sentido físico (caño finísimo de metros de alto,
+  // o caño gordo y enano). El largo se calcula sobre el diámetro efectivo (clamped).
+  const stackDiaLo = stack.stackDiaMin(esv);
+  const stackDiaHi = stack.stackDiaMax(esv);
+  const stackDiaEff = Math.min(Math.max(s.stackDia || 0, stackDiaLo), stackDiaHi);
+  const stackLen = stack.stackLength(esv, stackDiaEff);
   const stackTargetDia = stack.stackDiameterForLength(esv, stack.TARGET_STACK_LENGTH);
+  const stackClamped = (s.stackDia || 0) < stackDiaLo - 1e-9 || (s.stackDia || 0) > stackDiaHi + 1e-9;
 
   const intake = airIntake.intakeArea(ccVol);
-  const holes = airIntake.holeCount(intake, s.intakeHoleDia);
+  // Entradas de aire: el diámetro del agujero se acota para que la cantidad quede entre
+  // 1 y 24. Agujeros más chicos → cientos de perforaciones; más grandes → sobra área.
+  const intakeHoleDiaLo = airIntake.intakeHoleDiaMin(intake);
+  const intakeHoleDiaHi = airIntake.intakeHoleDiaMax(intake);
+  const intakeHoleDiaEff = Math.min(Math.max(s.intakeHoleDia || 0, intakeHoleDiaLo), intakeHoleDiaHi);
+  const holes = airIntake.holeCount(intake, intakeHoleDiaEff);
+  const intakeClamped =
+    (s.intakeHoleDia || 0) < intakeHoleDiaLo - 1e-9 || (s.intakeHoleDia || 0) > intakeHoleDiaHi + 1e-9;
 
   return {
     ccVol,
@@ -240,8 +254,16 @@ export function derive(s = state) {
     esv,
     stackLen,
     stackTargetDia,
+    stackDiaEff,
+    stackDiaLo,
+    stackDiaHi,
+    stackClamped,
     intake,
     holes,
+    intakeHoleDiaEff,
+    intakeHoleDiaLo,
+    intakeHoleDiaHi,
+    intakeClamped,
     intakeUpper: intake * airIntake.UPPER_INTAKE_SHARE,
     intakeLower: intake * airIntake.LOWER_INTAKE_SHARE,
     underPlate: rf.underPlateArea(ccVol),

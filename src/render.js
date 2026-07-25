@@ -119,7 +119,22 @@ export function renderOutputs() {
   // --- Chimenea ---
   setText('out-stack-esv', fmtVolume(d.esv, u, false));
   setText('out-stack-length', fmtLength(d.stackLen, u, 0));
-  setHTML('out-stack-target-line', t('stack.target', { d: fmtLength(d.stackTargetDia, u, 1) }));
+  const stackRangeArgs = {
+    d: fmtLength(d.stackDiaEff, u, 1),
+    lo: fmtLength(d.stackDiaLo, u, 1),
+    hi: fmtLength(d.stackDiaHi, u, 1),
+  };
+  setHTML(
+    'out-stack-target-line',
+    d.stackClamped
+      ? `<span class="warn">${t('stack.clamped', stackRangeArgs)}</span>`
+      : `${t('stack.target', { d: fmtLength(d.stackTargetDia, u, 1) })} · <span class="muted">${t('stack.range', stackRangeArgs)}</span>`,
+  );
+  const stackInput = document.getElementById('in-stack-dia');
+  if (stackInput) {
+    stackInput.min = cleanNum(lengthFromInch(d.stackDiaLo, u));
+    stackInput.max = cleanNum(lengthFromInch(d.stackDiaHi, u));
+  }
   setSvg('stack-svg', stackDiagram());
 
   // --- Entradas de aire ---
@@ -129,6 +144,22 @@ export function renderOutputs() {
     t('intake.split', { u: fmtArea(d.intakeUpper, u), l: fmtArea(d.intakeLower, u) }),
   );
   setText('out-intake-holes', fmt(d.holes, 0));
+  const intakeRangeArgs = {
+    d: fmtLength(d.intakeHoleDiaEff, u, 1),
+    lo: fmtLength(d.intakeHoleDiaLo, u, 1),
+    hi: fmtLength(d.intakeHoleDiaHi, u, 1),
+  };
+  setHTML(
+    'out-intake-range-line',
+    d.intakeClamped
+      ? `<span class="warn">${t('intake.clamped', intakeRangeArgs)}</span>`
+      : `<span class="muted">${t('intake.range', intakeRangeArgs)}</span>`,
+  );
+  const intakeInput = document.getElementById('in-intake-hole');
+  if (intakeInput) {
+    intakeInput.min = cleanNum(lengthFromInch(d.intakeHoleDiaLo, u));
+    intakeInput.max = cleanNum(lengthFromInch(d.intakeHoleDiaHi, u));
+  }
   setSvg('intake-svg', intakeDiagram());
   setSvg('intake-front-svg', intakeDiagramFront());
 

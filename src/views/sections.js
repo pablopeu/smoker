@@ -54,15 +54,17 @@ function diaField(id, labelKey, modeName, wallWrapId, wallId, inputClass = '') {
       <input id="${id}" class="${inputClass}" type="number" min="0" step="any" inputmode="decimal">
       <span class="unitlbl u-len">in</span>
     </span>
-    <span class="radio-group compact dia-mode">
-      <label class="radio-pill"><input type="radio" name="${modeName}" value="id"><span>${t('dia.internal')}</span></label>
-      <label class="radio-pill"><input type="radio" name="${modeName}" value="od"><span>${t('dia.external')}</span></label>
-    </span>
-    <span class="wall-field" id="${wallWrapId}" hidden>
-      <span class="field-label">${t('wall')}</span>
-      <span class="field-input">
-        <input id="${wallId}" class="input-narrow" type="number" min="0" step="any" inputmode="decimal">
-        <span class="unitlbl u-len">in</span>
+    <span class="dia-options">
+      <span class="radio-group compact dia-mode">
+        <label class="radio-pill"><input type="radio" name="${modeName}" value="id"><span>${t('dia.internal')}</span></label>
+        <label class="radio-pill"><input type="radio" name="${modeName}" value="od"><span>${t('dia.external')}</span></label>
+      </span>
+      <span class="wall-field" id="${wallWrapId}" hidden>
+        <span class="field-label">${t('wall')}</span>
+        <span class="field-input">
+          <input id="${wallId}" class="input-narrow" type="number" min="0" step="any" inputmode="decimal">
+          <span class="unitlbl u-len">in</span>
+        </span>
       </span>
     </span>
   </div>`;
@@ -111,15 +113,17 @@ function fireboxHtml() {
           <span class="unitlbl u-len">in</span>
           <button class="sync-btn" id="btn-fb-cyl-sync" type="button" title="${t('fb.syncTitle')}" aria-label="${t('fb.syncTitle')}">${t('fb.sync')}</button>
         </span>
-        <span class="radio-group compact dia-mode">
-          <label class="radio-pill"><input type="radio" name="fb-cyl-dia-mode" value="id"><span>${t('dia.internal')}</span></label>
-          <label class="radio-pill"><input type="radio" name="fb-cyl-dia-mode" value="od"><span>${t('dia.external')}</span></label>
-        </span>
-        <span class="wall-field" id="fb-cyl-wall-wrap" hidden>
-          <span class="field-label">${t('wall')}</span>
-          <span class="field-input">
-            <input id="in-fb-cyl-wall" class="input-narrow" type="number" min="0" step="any" inputmode="decimal">
-            <span class="unitlbl u-len">in</span>
+        <span class="dia-options">
+          <span class="radio-group compact dia-mode">
+            <label class="radio-pill"><input type="radio" name="fb-cyl-dia-mode" value="id"><span>${t('dia.internal')}</span></label>
+            <label class="radio-pill"><input type="radio" name="fb-cyl-dia-mode" value="od"><span>${t('dia.external')}</span></label>
+          </span>
+          <span class="wall-field" id="fb-cyl-wall-wrap" hidden>
+            <span class="field-label">${t('wall')}</span>
+            <span class="field-input">
+              <input id="in-fb-cyl-wall" class="input-narrow" type="number" min="0" step="any" inputmode="decimal">
+              <span class="unitlbl u-len">in</span>
+            </span>
           </span>
         </span>
       </div>
@@ -258,6 +262,7 @@ function intakeHtml() {
   </div>
   <div class="readout">
     <div class="result-line">${t('intake.holes')}: <strong id="out-intake-holes">—</strong></div>
+    <div class="result-line hint" id="out-intake-range-line">—</div>
     <div class="diag-row">
       <div>
         <div id="intake-svg" class="diag-wrap"></div>
