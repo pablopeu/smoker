@@ -191,29 +191,29 @@ export function footballDiagram(ccDia, fbDia, h, ccLip, sideCut, centerDistStr) 
   const fbD = Math.max(0, fbDia || 0);
   const cx = 100;
   const cyC = 50;
-  const rOut = 42; // Ø exterior de la cámara (SVG)
+  const rOut = 42; // radio SVG de la CC
+  const scalePx = (2 * rOut) / ccD; // píxeles por pulgada real
   const cutD = Math.max(0, ccD - 2 * (ccLip || 0));
-  const rIn = (cutD / ccD) * rOut; // límite de corte (CC interior)
-  // El FB se dibuja a su tamaño real — el labio no lo achica
-  const rFB = Math.min((fbD || ccD) / ccD, 1.5) * rOut;
-  // Geometría de la lente: radio efectivo (menor entre CC y FB reales)
+  const rIn = (cutD / ccD) * rOut; // radio SVG del círculo de corte (labio)
+  // Tamaño real del FB en SVG — el lip no achica al FB
+  const rFB = ((fbD || ccD) / ccD) * rOut;
+  // Radio efectivo de la lente (menor entre CC y FB reales)
   const lensR = Math.min(ccD, fbD || ccD) / 2;
   const hh = Math.min(Math.max(h || 0, 0), lensR);
-  const inv = lensR > 0 ? (hh / lensR) * rFB : 0;
-  const fbTop = cyC + rIn - inv;
-  const cyFB = fbTop + rFB;
+  // Distancia entre centros en SVG: d = 2 * (lensR - hh) * scalePx
+  const dSVG = 2 * (lensR - hh) * scalePx;
+  const cyFB = cyC + dSVG;
   const showLip = rIn < rOut - 0.5;
   // Corte lateral
   const sc = Math.max(0, sideCut || 0);
-  const scalePx = 84 / ccD; // píxeles por pulgada real
-  const halfChord = Math.sqrt(Math.max(0, rIn * rIn - (rIn - Math.min(inv, 2 * rIn)) * (rIn - Math.min(inv, 2 * rIn))));
+  // Ancho medio de la intersección entre el círculo de corte y el FB
+  const yInt = dSVG > 0.001 ? (rIn * rIn - rFB * rFB + dSVG * dSVG) / (2 * dSVG) : 0;
+  const halfChord = Math.sqrt(Math.max(0, rIn * rIn - yInt * yInt));
   const showCut = sc > 0.01 && halfChord > sc * scalePx + 1;
   const leftCut = cx - halfChord + sc * scalePx;
   const rightCut = cx + halfChord - sc * scalePx;
   const fillBot = cyFB + rFB + 4;
-  const fbDx = 176;
-  const fbCDistPx = cyFB - cyC;
-  const fbDistValid = fbCDistPx > 6;
+  const fbDistValid = dSVG > 6;
   return `
 <svg class="diag" viewBox="0 -14 200 214" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${t('diag.aria.segment')}">
   <defs>
@@ -232,10 +232,10 @@ export function footballDiagram(ccDia, fbDia, h, ccLip, sideCut, centerDistStr) 
     <line class="dim" x1="${leftCut}" y1="${fillBot + 4}" x2="${leftCut}" y2="${fillBot + 12}"/>
     <line class="dim" x1="${rightCut}" y1="${fillBot + 4}" x2="${rightCut}" y2="${fillBot + 12}"/>
     <text class="sidecut-lbl" x="${(leftCut + rightCut) / 2}" y="${fillBot + 22}" text-anchor="middle">${t('diag.effW')}</text>` : ''}
-  ${fbDistValid ? `<line class="dim" x1="${fbDx}" y1="${cyC}" x2="${fbDx}" y2="${cyFB}"/>
-    <line class="dim" x1="${fbDx - 4}" y1="${cyC}" x2="${fbDx + 4}" y2="${cyC}"/>
-    <line class="dim" x1="${fbDx - 4}" y1="${cyFB}" x2="${fbDx + 4}" y2="${cyFB}"/>
-    <text class="dimlbl" x="${fbDx - 8}" y="${(cyC + cyFB) / 2 + 4}" text-anchor="end" font-size="10">${centerDistStr || ''}</text>` : ''}
+  ${fbDistValid ? `<line class="dim" x1="176" y1="${cyC}" x2="176" y2="${cyFB}"/>
+    <line class="dim" x1="172" y1="${cyC}" x2="180" y2="${cyC}"/>
+    <line class="dim" x1="172" y1="${cyFB}" x2="180" y2="${cyFB}"/>
+    <text class="dimlbl" x="168" y="${(cyC + cyFB) / 2 + 4}" text-anchor="end" font-size="10">${centerDistStr || ''}</text>` : ''}
   <text class="lbl" x="${cx}" y="${cyC - rOut - 6}" text-anchor="middle">CC</text>
   <text class="lbl" x="${cx}" y="${cyFB + rFB + 13}" text-anchor="middle">FB</text>
 </svg>`;
