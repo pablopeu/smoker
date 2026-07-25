@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#11151c" />
+  <title>Offset Smoker Calculator</title>
+  <meta name="description" content="Calculadora de dimensiones para offset smoker, basada en las fórmulas de DaveOmak." />
+  <link rel="stylesheet" href="/src/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-titles">
+      <h1 data-i18n="app.title">Offset Smoker Calculator</h1>
+      <a class="subtitle" data-i18n="app.subtitle" href="https://www.smokingmeatforums.com/threads/standard-reverse-flow-smoker-calculator-by-daveomak-and-others-ready-to-use-rev5-6-19-15.172425/" target="_blank" rel="noopener noreferrer" title="Hilo fuente en SmokingMeatForums">Fórmulas de DaveOmak · SmokingMeatForums · Rev5 (6/19/15) ↗</a>
+    </div>
+    <div class="topbar-controls">
+      <span class="lang-switch" role="group" aria-label="Idioma / Language">
+        <button type="button" class="lang-btn" data-lang="es" aria-pressed="true"></button>
+        <button type="button" class="lang-btn" data-lang="en" aria-pressed="false"></button>
+      </span>
+      <span class="unit-switch">
+        <span class="unit-switch-label" data-i18n="system">Sistema</span>
+        <span class="radio-group compact" role="radiogroup" aria-label="Sistema de unidades">
+          <label class="radio-pill"><input type="radio" name="unit" value="imperial"><span data-i18n="unit.imperial">Imperial (in)</span></label>
+          <label class="radio-pill"><input type="radio" name="unit" value="metric" checked><span data-i18n="unit.metric">Métrico (mm)</span></label>
+        </span>
+      </span>
+      <label class="rf-switch" title="Reverse Flow">
+        <input type="checkbox" id="chk-rf" />
+        <span data-i18n="rf">Reverse Flow</span>
+      </label>
+    </div>
+  </header>
+
+  <main class="layout">
+    <div id="sections" class="sections"></div>
+    <aside id="sidebar" class="sidebar" aria-label="Resultados"></aside>
+  </main>
+
+  <footer class="footer">
+    <p data-i18n="footer.note">Calculadora técnica para validar dimensiones. No reemplaza el sentido común ni la experiencia: las desviaciones de hasta ±15% se toleran.</p>
+    <p class="credit" data-i18n="footer.credit">Basada en el trabajo de DaveOmak y otros en SmokingMeatForums. Proyecto sin fines comerciales.</p>
+  </footer>
+
+  <div id="modal-root" aria-live="polite"></div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

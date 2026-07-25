@@ -1,0 +1,20 @@
+{
+  "name": "smokercalc",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Offset Smoker Calculator basado en las fórmulas de DaveOmak (SmokingMeatForums, Rev5 6-19-15).",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "node --test \"test/**/*.test.js\""
+  },
+  "devDependencies": {
+    "jsdom": "^29.1.1",
+    "vite": "^5.4.10"
+  },
+  "allowScripts": {
+    "esbuild@0.21.5": true
+  }
+}
