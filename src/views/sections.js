@@ -72,92 +72,104 @@ function diaField(id, labelKey, modeName, wallWrapId, wallId, inputClass = '') {
 
 function cookChamberHtml() {
   return `
-  <div class="fields">${diaField('in-cc-dia', 'cc.diameter', 'cc-dia-mode', 'cc-wall-wrap', 'in-cc-wall')}${lenField('in-cc-len', 'cc.length')}</div>
-  <div class="split-sub">
-    <div class="sub-text">
-      <div class="result-line big">${t('cc.volume')}: <strong id="out-cc-volume">—</strong></div>
-      <p class="note">${t('cc.note')}</p>
-    </div>
-    <div class="sub-drawing">
-      <div id="cc-svg" class="diag-wrap"></div>
+  <div class="entry">
+    <div class="fields">${diaField('in-cc-dia', 'cc.diameter', 'cc-dia-mode', 'cc-wall-wrap', 'in-cc-wall')}${lenField('in-cc-len', 'cc.length')}</div>
+  </div>
+  <div class="readout">
+    <div class="readout-hero">${t('cc.volume')}: <strong id="out-cc-volume">—</strong></div>
+    <div class="split-sub">
+      <div class="sub-text">
+        <p class="note">${t('cc.note')}</p>
+      </div>
+      <div class="sub-drawing">
+        <div id="cc-svg" class="diag-wrap"></div>
+      </div>
     </div>
   </div>`;
 }
 
 function fireboxHtml() {
   return `
-  <div class="fields">
-    <label class="field">
-      <span class="field-label">${t('fb.shape')}</span>
-      ${radioGroup('fb-shape', [
-        { value: 'rectangular', label: 'fb.rectangular' },
-        { value: 'cylindrical', label: 'fb.cylindrical' },
-      ])}
-    </label>
-  </div>
-  <div class="fields" id="fb-rect-fields">
-    ${lenField('in-fb-w', 'fb.width')}${lenField('in-fb-h', 'fb.height')}${lenField('in-fb-d', 'fb.depth')}
-  </div>
-  <div class="fields" id="fb-cyl-fields" hidden>
-    <div class="field dia-field">
-      <span class="field-label">${t('fb.diameter')}</span>
-      <span class="field-input">
-        <input id="in-fb-cyl-dia" class="input-narrow" type="number" min="0" step="any" inputmode="decimal">
-        <span class="unitlbl u-len">in</span>
-        <button class="sync-btn" id="btn-fb-cyl-sync" type="button" title="${t('fb.syncTitle')}" aria-label="${t('fb.syncTitle')}">${t('fb.sync')}</button>
-      </span>
-      <span class="radio-group compact dia-mode">
-        <label class="radio-pill"><input type="radio" name="fb-cyl-dia-mode" value="id"><span>${t('dia.internal')}</span></label>
-        <label class="radio-pill"><input type="radio" name="fb-cyl-dia-mode" value="od"><span>${t('dia.external')}</span></label>
-      </span>
-      <span class="wall-field" id="fb-cyl-wall-wrap" hidden>
-        <span class="field-label">${t('wall')}</span>
+  <div class="entry">
+    <div class="fields">
+      <label class="field">
+        <span class="field-label">${t('fb.shape')}</span>
+        ${radioGroup('fb-shape', [
+          { value: 'rectangular', label: 'fb.rectangular' },
+          { value: 'cylindrical', label: 'fb.cylindrical' },
+        ])}
+      </label>
+    </div>
+    <div class="fields" id="fb-rect-fields">
+      ${lenField('in-fb-w', 'fb.width')}${lenField('in-fb-h', 'fb.height')}${lenField('in-fb-d', 'fb.depth')}
+    </div>
+    <div class="fields" id="fb-cyl-fields" hidden>
+      <div class="field dia-field">
+        <span class="field-label">${t('fb.diameter')}</span>
         <span class="field-input">
-          <input id="in-fb-cyl-wall" class="input-narrow" type="number" min="0" step="any" inputmode="decimal">
+          <input id="in-fb-cyl-dia" class="input-narrow" type="number" min="0" step="any" inputmode="decimal">
           <span class="unitlbl u-len">in</span>
+          <button class="sync-btn" id="btn-fb-cyl-sync" type="button" title="${t('fb.syncTitle')}" aria-label="${t('fb.syncTitle')}">${t('fb.sync')}</button>
         </span>
-      </span>
+        <span class="radio-group compact dia-mode">
+          <label class="radio-pill"><input type="radio" name="fb-cyl-dia-mode" value="id"><span>${t('dia.internal')}</span></label>
+          <label class="radio-pill"><input type="radio" name="fb-cyl-dia-mode" value="od"><span>${t('dia.external')}</span></label>
+        </span>
+        <span class="wall-field" id="fb-cyl-wall-wrap" hidden>
+          <span class="field-label">${t('wall')}</span>
+          <span class="field-input">
+            <input id="in-fb-cyl-wall" class="input-narrow" type="number" min="0" step="any" inputmode="decimal">
+            <span class="unitlbl u-len">in</span>
+          </span>
+        </span>
+      </div>
+      ${lenField('in-fb-cyl-len', 'fb.cylLength')}
     </div>
-    ${lenField('in-fb-cyl-len', 'fb.cylLength')}
   </div>
-  <div class="split-sub">
-    <div class="sub-text">
-      <div class="result-line">${t('fb.current')}: <strong id="out-fb-volume">—</strong></div>
-      <div class="result-line">${t('fb.recommended')}: <strong id="out-fb-recommended">—</strong></div>
-      <div class="result-line" id="out-fb-percent-line">—</div>
-      <div class="status-pill" id="out-fb-status">—</div>
-    </div>
-    <div class="sub-drawing">
-      <div id="fb-svg" class="diag-wrap"></div>
+  <div class="readout">
+    <div class="split-sub">
+      <div class="sub-text">
+        <div class="result-line">${t('fb.current')}: <strong id="out-fb-volume">—</strong></div>
+        <div class="result-line">${t('fb.recommended')}: <strong id="out-fb-recommended">—</strong></div>
+        <div class="result-line" id="out-fb-percent-line">—</div>
+        <div class="status-pill" id="out-fb-status">—</div>
+      </div>
+      <div class="sub-drawing">
+        <div id="fb-svg" class="diag-wrap"></div>
+      </div>
     </div>
   </div>`;
 }
 
 function openingHtml() {
   return `
-  <div class="result-line big">${t('opening.required')}: <strong id="out-open-area">—</strong></div>
+  <div class="readout">
+    <div class="readout-hero">${t('opening.required')}: <strong id="out-open-area">—</strong></div>
+  </div>
 
-  <div class="lip-row">
-    <div class="slider-box">
-      <div class="slider-box-head">
-        <span>${t('opening.lip')}</span>
-        <strong id="out-lip">—</strong>
+  <div class="entry">
+    <div class="lip-row">
+      <div class="slider-box">
+        <div class="slider-box-head">
+          <span>${t('opening.lip')}</span>
+          <strong id="out-lip">—</strong>
+        </div>
+        <input id="in-lip" type="range" min="0" max="12" step="0.5" aria-label="${t('opening.lip')}">
+        <div class="result-line hint">${t('opening.lipHint')}</div>
       </div>
-      <input id="in-lip" type="range" min="0" max="12" step="0.5" aria-label="${t('opening.lip')}">
-      <div class="result-line hint">${t('opening.lipHint')}</div>
-    </div>
 
-    <div class="slider-box">
-      <div class="slider-box-head">
-        <span>${t('opening.sideCut')}</span>
-        <strong id="out-sidecut">—</strong>
+      <div class="slider-box">
+        <div class="slider-box-head">
+          <span>${t('opening.sideCut')}</span>
+          <strong id="out-sidecut">—</strong>
+        </div>
+        <input id="in-sidecut" type="range" min="0" max="12" step="0.5" aria-label="${t('opening.sideCut')}">
+        <div class="result-line hint">${t('opening.sideCutHint')}</div>
       </div>
-      <input id="in-sidecut" type="range" min="0" max="12" step="0.5" aria-label="${t('opening.sideCut')}">
-      <div class="result-line hint">${t('opening.sideCutHint')}</div>
     </div>
   </div>
 
-  <div class="subblock" id="rect-block">
+  <div class="readout subblock" id="rect-block">
     <h3>${t('opening.rect')}</h3>
     <div class="result-line">${t('opening.width')}: <strong id="out-rect-width">—</strong> <span class="muted">${t('opening.fromFb')}</span></div>
     <div class="result-line">${t('opening.height')}: <strong id="out-rect-height">—</strong></div>
@@ -168,7 +180,7 @@ function openingHtml() {
       <div class="sub-text">
         <h3>${t('opening.segment')}</h3>
         <div class="result-line hint" id="out-seg-oncc">—</div>
-        <div class="slider-box">
+        <div class="entry slider-box">
           <div class="slider-box-head">
             <span>${t('opening.cutHeight')} (h)</span>
             <strong id="out-seg-h">—</strong>
@@ -192,7 +204,7 @@ function openingHtml() {
         <h3>${t('opening.football')}</h3>
         <div class="result-line hint">${t('opening.footballHint')}</div>
         <div class="result-line hint" id="out-football-radius">—</div>
-        <div class="slider-box">
+        <div class="entry slider-box">
           <div class="slider-box-head">
             <span>${t('opening.cutHeightCap')} (h)</span>
             <strong id="out-football-h">—</strong>
@@ -217,43 +229,55 @@ function openingHtml() {
 
 function stackHtml() {
   return `
-  <div class="fields fields-1">${lenField('in-stack-dia', 'stack.diameter')}</div>
-  <div class="split-sub">
-    <div class="sub-text">
-      <div class="result-line">${t('stack.esv')}: <strong id="out-stack-esv">—</strong></div>
-      <div class="result-line big">${t('stack.length')}: <strong id="out-stack-length">—</strong></div>
-      <div class="result-line hint" id="out-stack-target-line">—</div>
-      <p class="note">${t('stack.note')}</p>
-    </div>
-    <div class="sub-drawing diag-sm">
-      <div id="stack-svg" class="diag-wrap"></div>
+  <div class="entry">
+    <div class="fields fields-1">${lenField('in-stack-dia', 'stack.diameter')}</div>
+  </div>
+  <div class="readout">
+    <div class="split-sub">
+      <div class="sub-text">
+        <div class="result-line">${t('stack.esv')}: <strong id="out-stack-esv">—</strong></div>
+        <div class="readout-hero">${t('stack.length')}: <strong id="out-stack-length">—</strong></div>
+        <div class="result-line hint" id="out-stack-target-line">—</div>
+        <p class="note">${t('stack.note')}</p>
+      </div>
+      <div class="sub-drawing diag-sm">
+        <div id="stack-svg" class="diag-wrap"></div>
+      </div>
     </div>
   </div>`;
 }
 
 function intakeHtml() {
   return `
-  <div class="result-line big">${t('intake.area')}: <strong id="out-intake-area">—</strong></div>
-  <div class="result-line hint" id="out-intake-split-line">—</div>
-  <div class="fields fields-1">${lenField('in-intake-hole', 'intake.holeDia')}</div>
-  <div class="result-line">${t('intake.holes')}: <strong id="out-intake-holes">—</strong></div>
-  <div class="diag-row">
-    <div>
-      <div id="intake-svg" class="diag-wrap"></div>
-      <div class="diag-cap">${t('intake.sideCap')}</div>
-    </div>
+  <div class="readout">
+    <div class="readout-hero">${t('intake.area')}: <strong id="out-intake-area">—</strong></div>
+    <div class="result-line hint" id="out-intake-split-line">—</div>
+  </div>
+  <div class="entry">
+    <div class="fields fields-1">${lenField('in-intake-hole', 'intake.holeDia')}</div>
+  </div>
+  <div class="readout">
+    <div class="result-line">${t('intake.holes')}: <strong id="out-intake-holes">—</strong></div>
+    <div class="diag-row">
+      <div>
+        <div id="intake-svg" class="diag-wrap"></div>
+        <div class="diag-cap">${t('intake.sideCap')}</div>
+      </div>
     <div>
       <div id="intake-front-svg" class="diag-wrap"></div>
       <div class="diag-cap">${t('intake.frontCap')}</div>
+    </div>
     </div>
   </div>`;
 }
 
 function reverseFlowHtml() {
   return `
-  <div class="result-line">${t('rf.under')} <span class="muted">${t('rf.equals')}</span>: <strong id="out-rf-under">—</strong></div>
-  <div class="result-line">${t('rf.end')} <span class="muted">${t('rf.equals')}</span>: <strong id="out-rf-end">—</strong></div>
-  <p class="note">${t('rf.note')}</p>`;
+  <div class="readout">
+    <div class="result-line">${t('rf.under')} <span class="muted">${t('rf.equals')}</span>: <strong id="out-rf-under">—</strong></div>
+    <div class="result-line">${t('rf.end')} <span class="muted">${t('rf.equals')}</span>: <strong id="out-rf-end">—</strong></div>
+    <p class="note">${t('rf.note')}</p>
+  </div>`;
 }
 
 export function buildSections() {
