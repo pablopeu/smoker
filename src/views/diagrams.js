@@ -191,15 +191,15 @@ export function footballDiagram(ccDia, fbDia, h, ccLip, sideCut, centerDistStr) 
   const fbD = Math.max(0, fbDia || 0);
   const cx = 100;
   const cyC = 50;
-  const rOut = 42; // Ø exterior de la cámara
+  const rOut = 42; // Ø exterior de la cámara (SVG)
   const cutD = Math.max(0, ccD - 2 * (ccLip || 0));
   const rIn = (cutD / ccD) * rOut; // límite de corte (CC interior)
-  // Radio efectivo (el menor entre corte y FB): si el FB no restringe, usa el de corte.
-  const effD = Math.min(cutD, fbD || ccD);
-  const rFB = (effD / ccD) * rOut;
-  const R = effD / 2;
-  const hh = Math.min(Math.max(h || 0, 0), R);
-  const inv = R > 0 ? (hh / R) * rFB : 0; // cuánto invade el FB al círculo de corte
+  // El FB se dibuja a su tamaño real — el labio no lo achica
+  const rFB = Math.min((fbD || ccD) / ccD, 1.5) * rOut;
+  // Geometría de la lente: radio efectivo (menor entre CC y FB reales)
+  const lensR = Math.min(ccD, fbD || ccD) / 2;
+  const hh = Math.min(Math.max(h || 0, 0), lensR);
+  const inv = lensR > 0 ? (hh / lensR) * rFB : 0;
   const fbTop = cyC + rIn - inv;
   const cyFB = fbTop + rFB;
   const showLip = rIn < rOut - 0.5;
