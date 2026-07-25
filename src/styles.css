@@ -187,10 +187,10 @@ a.subtitle:hover { color: #fff; text-decoration: underline; }
    .subblock.split-sub (más específico) para que el flex-direction:row gane sobre
    el column de .subblock sin depender del orden en el archivo. */
 .subblock-row { display: flex; flex-direction: column; gap: 10px; }
-.subblock.split-sub { flex-direction: row; flex-wrap: wrap; gap: 12px; align-items: stretch; }
-.subblock.split-sub .sub-text { flex: 0 1 280px; min-width: 220px; display: flex; flex-direction: column; gap: 6px; }
-.subblock.split-sub .sub-drawing { flex: 1 1 240px; min-width: 180px; display: flex; align-items: center; justify-content: center; }
-.subblock.split-sub .sub-drawing .diag { max-width: 360px; }
+.subblock.split-sub, .card-body > .split-sub { flex-direction: row; flex-wrap: wrap; gap: 12px; align-items: stretch; }
+.subblock.split-sub .sub-text, .card-body > .split-sub .sub-text { flex: 0 1 280px; min-width: 200px; display: flex; flex-direction: column; gap: 6px; }
+.subblock.split-sub .sub-drawing, .card-body > .split-sub .sub-drawing { flex: 1 1 200px; min-width: 160px; display: flex; align-items: center; justify-content: center; }
+.subblock.split-sub .sub-drawing .diag, .card-body > .split-sub .sub-drawing .diag { max-width: 340px; }
 @media (min-width: 960px) {
   .subblock-row { flex-direction: row; }
   .subblock-row > .subblock { flex: 1; min-width: 0; }
@@ -270,6 +270,7 @@ a.subtitle:hover { color: #fff; text-decoration: underline; }
 .diag .dimlbl { fill: var(--accent); font-size: 13px; font-weight: 700; font-family: ui-sans-serif, system-ui, sans-serif; }
 .diag .seg-fill { fill: var(--accent); fill-opacity: 0.28; stroke: var(--accent); stroke-width: 2; }
 .diag .sidecut-lbl { fill: var(--dim); font-size: 10px; font-family: ui-sans-serif, system-ui, sans-serif; font-style: italic; }
+.diag-sm .diag { max-width: 200px; }
 .diag .intake { fill: var(--accent); fill-opacity: 0.5; }
 .diag .arrow { fill: var(--dim); stroke: none; }
 .diag .lbl { fill: var(--ink-soft); font-size: 11px; font-family: ui-sans-serif, system-ui, sans-serif; }

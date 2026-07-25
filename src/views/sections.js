@@ -73,9 +73,15 @@ function diaField(id, labelKey, modeName, wallWrapId, wallId, inputClass = '') {
 function cookChamberHtml() {
   return `
   <div class="fields">${diaField('in-cc-dia', 'cc.diameter', 'cc-dia-mode', 'cc-wall-wrap', 'in-cc-wall')}${lenField('in-cc-len', 'cc.length')}</div>
-  <div id="cc-svg" class="diag-wrap"></div>
-  <div class="result-line big">${t('cc.volume')}: <strong id="out-cc-volume">—</strong></div>
-  <p class="note">${t('cc.note')}</p>`;
+  <div class="split-sub">
+    <div class="sub-text">
+      <div class="result-line big">${t('cc.volume')}: <strong id="out-cc-volume">—</strong></div>
+      <p class="note">${t('cc.note')}</p>
+    </div>
+    <div class="sub-drawing">
+      <div id="cc-svg" class="diag-wrap"></div>
+    </div>
+  </div>`;
 }
 
 function fireboxHtml() {
@@ -114,11 +120,17 @@ function fireboxHtml() {
     </div>
     ${lenField('in-fb-cyl-len', 'fb.cylLength')}
   </div>
-  <div id="fb-svg" class="diag-wrap"></div>
-  <div class="result-line">${t('fb.current')}: <strong id="out-fb-volume">—</strong></div>
-  <div class="result-line">${t('fb.recommended')}: <strong id="out-fb-recommended">—</strong></div>
-  <div class="result-line" id="out-fb-percent-line">—</div>
-  <div class="status-pill" id="out-fb-status">—</div>`;
+  <div class="split-sub">
+    <div class="sub-text">
+      <div class="result-line">${t('fb.current')}: <strong id="out-fb-volume">—</strong></div>
+      <div class="result-line">${t('fb.recommended')}: <strong id="out-fb-recommended">—</strong></div>
+      <div class="result-line" id="out-fb-percent-line">—</div>
+      <div class="status-pill" id="out-fb-status">—</div>
+    </div>
+    <div class="sub-drawing">
+      <div id="fb-svg" class="diag-wrap"></div>
+    </div>
+  </div>`;
 }
 
 function openingHtml() {
@@ -206,11 +218,17 @@ function openingHtml() {
 function stackHtml() {
   return `
   <div class="fields fields-1">${lenField('in-stack-dia', 'stack.diameter')}</div>
-  <div id="stack-svg" class="diag-wrap"></div>
-  <div class="result-line">${t('stack.esv')}: <strong id="out-stack-esv">—</strong></div>
-  <div class="result-line big">${t('stack.length')}: <strong id="out-stack-length">—</strong></div>
-  <div class="result-line hint" id="out-stack-target-line">—</div>
-  <p class="note">${t('stack.note')}</p>`;
+  <div class="split-sub">
+    <div class="sub-text">
+      <div class="result-line">${t('stack.esv')}: <strong id="out-stack-esv">—</strong></div>
+      <div class="result-line big">${t('stack.length')}: <strong id="out-stack-length">—</strong></div>
+      <div class="result-line hint" id="out-stack-target-line">—</div>
+      <p class="note">${t('stack.note')}</p>
+    </div>
+    <div class="sub-drawing diag-sm">
+      <div id="stack-svg" class="diag-wrap"></div>
+    </div>
+  </div>`;
 }
 
 function intakeHtml() {
