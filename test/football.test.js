@@ -31,7 +31,7 @@ test('football: usa el radio del FB cuando es más chico (state.derive)', async 
   let d = derive(getState());
   assert.equal(d.footballR, 8, 'radio efectivo = FB/2');
   assert.equal(d.footballDia, 16);
-  assert.equal(d.footballConstrains, true);
+  assert.equal(d.footballFbConstrains, true, 'FB más chico que CC → FB restringe');
   // El área del football con radio del FB (8) es menor que con radio de CC (12):
   // demuestra que la geometría sigue al FB, no a la CC.
   assert.ok(d.footballArea < opening.footballArea(12, 3));
@@ -40,7 +40,8 @@ test('football: usa el radio del FB cuando es más chico (state.derive)', async 
   setState({ fbCylDia: 24 });
   d = derive(getState());
   assert.equal(d.footballR, 12);
-  assert.equal(d.footballConstrains, false);
+  assert.equal(d.footballFbConstrains, false, 'FB = CC → FB no restringe');
+  assert.equal(d.footballCutConstrains, false, 'sin labio → corte no restringe');
 
   // FB rectangular → radio efectivo = CC.
   setState({ fbShape: 'rectangular' });

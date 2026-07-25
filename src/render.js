@@ -99,9 +99,11 @@ export function renderOutputs() {
   setSvg('football-svg', footballDiagram(s.ccDia, s.fbCylDia, s.footballH, s.ccLip, s.ccSideCut));
   setHTML(
     'out-football-radius',
-    d.footballConstrains
-      ? `${t('opening.radiusFb', { d: fmtLength(d.footballDia, u, 1) })} · <span class="warn">${t('opening.fbConstrains')}</span>`
-      : t('opening.radiusCc', { d: fmtLength(d.footballDia, u, 1) }),
+    d.footballCutConstrains
+      ? t('opening.radiusCut', { d: fmtLength(d.footballDia, u, 1) })
+      : d.footballFbConstrains
+        ? `${t('opening.radiusFb', { d: fmtLength(d.footballDia, u, 1) })} · <span class="warn">${t('opening.fbConstrains')}</span>`
+        : t('opening.radiusCc', { d: fmtLength(d.footballDia, u, 1) }),
   );
   setText('out-football-h', fmtLength(d.footballH, u, 1));
   setText('out-football-area', fmtArea(d.footballArea, u));

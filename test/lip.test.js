@@ -22,11 +22,13 @@ test('labio de seguridad: reduce el diámetro efectivo de corte', async () => {
   setState({ fbShape: 'cylindrical', fbCylDia: 16 });
   d = derive(getState());
   assert.equal(d.footballDia, Math.min(20, 16));
-  assert.equal(d.footballConstrains, true, 'el FB (16) restringe frente al corte (20)');
+  assert.equal(d.footballFbConstrains, true, 'el FB (16) restringe frente al corte (20)');
+  assert.equal(d.footballCutConstrains, false, 'corte no restringe cuando FB es más chico');
 
   // Si el labio deja el corte más chico que el FB, el corte es el que restringe.
   setState({ fbCylDia: 30 });
   d = derive(getState());
   assert.equal(d.footballDia, 20, 'el corte (20) es menor que el FB (30)');
-  assert.equal(d.footballConstrains, false);
+  assert.equal(d.footballFbConstrains, false);
+  assert.equal(d.footballCutConstrains, true, 'el labio hace que el corte (20) restrinja');
 });

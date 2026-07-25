@@ -178,9 +178,17 @@ export function derive(s = state) {
   // Football (FB+CC redondos soldados directo): lente de 2 casquetes con el radio
   // MENOR (si el FB cilíndrico es más chico, el football no entra armado con el de CC).
   const fbCyl = s.fbShape === 'cylindrical';
-  const footballDia = fbCyl ? Math.min(ccCutDia, s.fbCylDia) : ccCutDia;
+  // El football se arma entre dos tanques reales. El labio de la CC no achica al FB,
+  // solo limita el círculo de corte. El diámetro efectivo del football es el menor
+  // entre el diámetro REAL de la CC y el del FB.
+  const footballRealDia = fbCyl ? Math.min(s.ccDia, s.fbCylDia) : s.ccDia;
+  // Pero el área de apertura no puede exceder el círculo de corte (labio), así que
+  // el radio máximo para calcular área es el menor entre el real y el de corte.
+  const footballDia = Math.min(footballRealDia, ccCutDia);
   const footballR = footballDia / 2;
-  const footballConstrains = fbCyl && s.fbCylDia < ccCutDia;
+  // ¿Qué limita al football?
+  const footballFbConstrains = fbCyl && s.fbCylDia < s.ccDia;
+  const footballCutConstrains = ccCutDia < footballRealDia;
   // La sagitta de cada casquete vive en [0, radio]; más allá no aporta área útil.
   const fh = Math.min(Math.max(s.footballH || 0, 0), footballR);
   const fArea = clippedFootballArea(footballR, fh, sc);
@@ -215,7 +223,8 @@ export function derive(s = state) {
     segSideCut: sc,
     footballDia,
     footballR,
-    footballConstrains,
+    footballFbConstrains,
+    footballCutConstrains,
     footballH: fh,
     footballArea: fArea,
     footballNeeded: fNeeded,
