@@ -2,7 +2,7 @@
 
 > Calculadora de dimensiones para **offset smoker** (ahumadero de tiro lateral), basada en las fórmulas de **DaveOmak** publicadas en [SmokingMeatForums](https://www.smokingmeatforums.com/threads/standard-reverse-flow-smoker-calculator-by-daveomak-and-others-ready-to-use-rev5-6-19-15.172425/) (Rev5, 6/19/15).
 
-[![screenshot](screenshots/full-app.png)](screenshots/full-app.png)
+[![screenshot](images/language%20units%20results.jpg)](images/language%20units%20results.jpg)
 
 **Idiomas:** Español · English (selector arriba a la derecha)
 
@@ -58,7 +58,7 @@ Todo se recalcula **en vivo** mientras ajustás los parámetros.
 
 El cilindro donde se cocina. Podés ingresar el diámetro en modo **interno** (ID) o **externo** (OD). En modo externo aparece un campo de espesor de pared para descontar automáticamente.
 
-![CC diagram](screenshots/cc-diagram.png)
+![CC diagram](images/cook%20chamber.jpg)
 
 El volumen de la cámara es la base de **todos** los cálculos siguientes.
 
@@ -70,6 +70,8 @@ La caja donde arde la leña. Dos formas disponibles:
 - **Cilíndrico** — un tanque más chico soldado a la cámara. El botón "Reusar Ø cámara" precarga el mismo diámetro de la CC.
 
 El volumen actual se compara contra el mínimo recomendado (33% del volumen de la CC) y se muestra un indicador de estado: 🔴 muy pequeña / 🟡 aceptable / 🟢 correcta / 🟠 más grande de lo recomendado.
+
+![Firebox](images/firebox.jpg)
 
 ### 3 · Apertura FB → CC
 
@@ -83,7 +85,9 @@ Tres formas de construirla:
 | **Segmento circular** | Firebox rectangular + CC cilíndrica → un casquete cortado en la pared de la CC. |
 | **Football (lente)** | Firebox cilíndrico + CC cilíndrica → dos casquetes que forman una lente. |
 
-![Segment diagram](screenshots/segment-diagram.png) ![Football diagram](screenshots/football-diagram.png)
+![Segmento circular](images/circular%20segment.jpg) ![Football](images/football.jpg)
+
+![Football con corte lateral](images/segmented%20football.jpg)
 
 #### Labio de seguridad
 
@@ -168,15 +172,9 @@ npm run build     # build de producción en dist/
 npm test
 ```
 
----
 
-## Screenshots
 
-Si querés ver capturas de pantalla actualizadas de la interfaz, pedímelas.
-
----
-
-## Licencia
+---## Licencia
 
 Proyecto sin fines comerciales. Basado en el trabajo de **DaveOmak** y otros contribuyentes de SmokingMeatForums.
 Calculadora original de [Alien BBQ](https://www.alienbbq.com). Segmento circular: [1728 Software Systems](https://1728.org/circsect.htm). Contribuciones: Ribwizzard.
