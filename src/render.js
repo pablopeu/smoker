@@ -86,7 +86,8 @@ export function renderOutputs() {
   setText('out-rect-width', fmtLength(s.fbW, u));
   setText('out-rect-height', fmtLength(d.rectOther, u));
 
-  setSvg('seg-svg', segmentDiagram(s.ccDia, s.segHeight, s.ccLip, s.ccSideCut));
+  const segCenterStr = s.fbShape === 'rectangular' ? t('diag.centerDist', { d: fmtLength(d.segCenterDist, u, 1) }) : '';
+  setSvg('seg-svg', segmentDiagram(s.ccDia, s.segHeight, s.ccLip, s.ccSideCut, segCenterStr));
   setHTML('out-seg-oncc', t('opening.onChamber', { d: fmtLength(d.ccCutDia, u, 1) }));
   setText('out-seg-h', fmtLength(s.segHeight, u, 1));
   setText('out-seg-area', fmtArea(d.segArea, u));
@@ -96,7 +97,8 @@ export function renderOutputs() {
   setHTML('out-seg-ok', meets ? `<span class="ok">${t('opening.ok')}</span>` : `<span class="warn">${t('opening.warn')}</span>`);
 
   // --- Football (FB + CC redondos soldados directo) ---
-  setSvg('football-svg', footballDiagram(s.ccDia, s.fbCylDia, s.footballH, s.ccLip, s.ccSideCut));
+  const footballCenterStr = s.fbShape === 'cylindrical' ? t('diag.centerDist', { d: fmtLength(d.footballCenterDist, u, 1) }) : '';
+  setSvg('football-svg', footballDiagram(s.ccDia, s.fbCylDia, s.footballH, s.ccLip, s.ccSideCut, footballCenterStr));
   setHTML(
     'out-football-radius',
     d.footballCutConstrains

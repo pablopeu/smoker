@@ -196,6 +196,9 @@ export function derive(s = state) {
   const fChord = segmentChord(footballR, fh);
   const fEffChord = Math.max(0, fChord - 2 * sc);
   const fTotalH = 2 * fh;
+  // Distancias entre centros (referencia para construir, no para el cálculo de apertura).
+  const segCenterDist = Math.max(0, segR - s.segHeight + (s.fbH / 2));
+  const footballCenterDist = Math.max(0, 2 * (footballR - fh));
 
   const esv = stack.stackVolume(ccVol);
   const stackLen = stack.stackLength(esv, s.stackDia);
@@ -220,6 +223,8 @@ export function derive(s = state) {
     segNeeded,
     segChord,
     segEffChord,
+    segCenterDist,
+    footballCenterDist,
     segSideCut: sc,
     footballDia,
     footballR,

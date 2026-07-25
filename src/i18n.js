@@ -176,6 +176,7 @@ const dict = {
     'diag.aria.stack': 'Chimenea',
     'diag.aria.segment': 'Segmento circular',
     'diag.effW': 'ancho efectivo',
+    'diag.centerDist': 'd = {d}',
 
     // Ayuda
     'help.cc.title': 'Cámara de cocción',
@@ -397,5 +398,6 @@ const dict = {
       'The area under the plate and the gap at the end of the plate must EQUAL the FB→CC opening (CC × 0.004).',
     'help.rf.b3':
       'Common mistake: leaving too little gap at the end of the plate (chokes the draft) or welding the wrong end.',
+    'diag.centerDist': 'd = {d}',
   },
 };

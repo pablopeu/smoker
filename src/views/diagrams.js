@@ -127,7 +127,7 @@ export function stackDiagram() {
 
 // Segmento: cámara (círculo) + firebox CUADRADO que invade desde abajo. La intersección
 // (cuadrado ∩ círculo de corte) es un casquete = la apertura. h controla la invasión.
-export function segmentDiagram(ccDia, h, ccLip, sideCut) {
+export function segmentDiagram(ccDia, h, ccLip, sideCut, centerDistStr) {
   const D = Math.max(0, ccDia || 0);
   if (!(D > 0)) {
     return `<svg class="diag" viewBox="0 -14 200 214" xmlns="http://www.w3.org/2000/svg"><text class="dimlbl" x="70" y="100">${t('diag.enterDia')}</text></svg>`;
@@ -150,6 +150,10 @@ export function segmentDiagram(ccDia, h, ccLip, sideCut) {
   const showCut = sc > 0.01 && halfChord > sc * scalePx + 1;
   const leftCut = cx - halfChord + sc * scalePx;
   const rightCut = cx + halfChord - sc * scalePx;
+  // Distancia entre centros (CC → FB top) — cota vertical a la derecha
+  const segCDistPx = cyC - top;
+  const segCDistValid = segCDistPx > 6;
+  const dx = 176; // x position para la cota (derecha)
   return `
 <svg class="diag" viewBox="0 -14 200 214" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${t('diag.aria.segment')}">
   <defs>
@@ -168,6 +172,9 @@ export function segmentDiagram(ccDia, h, ccLip, sideCut) {
     <line class="dim" x1="${leftCut}" y1="${top + sqH + 12}" x2="${leftCut}" y2="${top + sqH + 20}"/>
     <line class="dim" x1="${rightCut}" y1="${top + sqH + 12}" x2="${rightCut}" y2="${top + sqH + 20}"/>
     <text class="sidecut-lbl" x="${(leftCut + rightCut) / 2}" y="${top + sqH + 28}" text-anchor="middle">${t('diag.effW')}</text>` : ''}
+  ${segCDistValid ? `<line class="dim" x1="${dx}" y1="${cyC}" x2="${dx}" y2="${top + sqH}"/>
+    <line class="dim" x1="${dx - 4}" y1="${cyC}" x2="${dx + 4}" y2="${cyC}"/>
+    <line class="dim" x1="${dx - 4}" y1="${top + sqH}" x2="${dx + 4}" y2="${top + sqH}"/><text class="dimlbl" x="${dx - 8}" y="${(cyC + top + sqH) / 2 + 4}" text-anchor="end" font-size="10">${centerDistStr || ''}</text>` : ''}
   <text class="lbl" x="${cx}" y="${cyC - rOut - 6}" text-anchor="middle">CC</text>
   <text class="lbl" x="${cx}" y="${top + sqH + 13}" text-anchor="middle">FB</text>
 </svg>`;
@@ -176,7 +183,7 @@ export function segmentDiagram(ccDia, h, ccLip, sideCut) {
 // Football: cámara (círculo) + firebox CILÍNDRICO que invade desde abajo. La
 // intersección de los dos círculos es una lente = la apertura (recortada al límite de
 // corte). h controla la invasión.
-export function footballDiagram(ccDia, fbDia, h, ccLip, sideCut) {
+export function footballDiagram(ccDia, fbDia, h, ccLip, sideCut, centerDistStr) {
   const ccD = Math.max(0, ccDia || 0);
   if (!(ccD > 0)) {
     return `<svg class="diag" viewBox="0 -14 200 214" xmlns="http://www.w3.org/2000/svg"><text class="dimlbl" x="70" y="100">${t('diag.enterDia')}</text></svg>`;
@@ -204,6 +211,9 @@ export function footballDiagram(ccDia, fbDia, h, ccLip, sideCut) {
   const leftCut = cx - halfChord + sc * scalePx;
   const rightCut = cx + halfChord - sc * scalePx;
   const fillBot = cyFB + rFB + 4;
+  const fbDx = 176;
+  const fbCDistPx = cyFB - cyC;
+  const fbDistValid = fbCDistPx > 6;
   return `
 <svg class="diag" viewBox="0 -14 200 214" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${t('diag.aria.segment')}">
   <defs>
@@ -222,6 +232,10 @@ export function footballDiagram(ccDia, fbDia, h, ccLip, sideCut) {
     <line class="dim" x1="${leftCut}" y1="${fillBot + 4}" x2="${leftCut}" y2="${fillBot + 12}"/>
     <line class="dim" x1="${rightCut}" y1="${fillBot + 4}" x2="${rightCut}" y2="${fillBot + 12}"/>
     <text class="sidecut-lbl" x="${(leftCut + rightCut) / 2}" y="${fillBot + 22}" text-anchor="middle">${t('diag.effW')}</text>` : ''}
+  ${fbDistValid ? `<line class="dim" x1="${fbDx}" y1="${cyC}" x2="${fbDx}" y2="${cyFB}"/>
+    <line class="dim" x1="${fbDx - 4}" y1="${cyC}" x2="${fbDx + 4}" y2="${cyC}"/>
+    <line class="dim" x1="${fbDx - 4}" y1="${cyFB}" x2="${fbDx + 4}" y2="${cyFB}"/>
+    <text class="dimlbl" x="${fbDx - 8}" y="${(cyC + cyFB) / 2 + 4}" text-anchor="end" font-size="10">${centerDistStr || ''}</text>` : ''}
   <text class="lbl" x="${cx}" y="${cyC - rOut - 6}" text-anchor="middle">CC</text>
   <text class="lbl" x="${cx}" y="${cyFB + rFB + 13}" text-anchor="middle">FB</text>
 </svg>`;
