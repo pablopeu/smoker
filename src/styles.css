@@ -186,10 +186,15 @@ a.subtitle:hover { color: #fff; text-decoration: underline; }
    apilados; a la der. el dibujo (más grande). Slider al doble de ancho que antes.
    .subblock.split-sub (más específico) para que el flex-direction:row gane sobre
    el column de .subblock sin depender del orden en el archivo. */
+.subblock-row { display: flex; flex-direction: column; gap: 10px; }
 .subblock.split-sub { flex-direction: row; flex-wrap: wrap; gap: 12px; align-items: stretch; }
 .subblock.split-sub .sub-text { flex: 0 1 280px; min-width: 220px; display: flex; flex-direction: column; gap: 6px; }
 .subblock.split-sub .sub-drawing { flex: 1 1 240px; min-width: 180px; display: flex; align-items: center; justify-content: center; }
 .subblock.split-sub .sub-drawing .diag { max-width: 360px; }
+@media (min-width: 960px) {
+  .subblock-row { flex-direction: row; }
+  .subblock-row > .subblock { flex: 1; min-width: 0; }
+}
 .slider-box {
   border: 1px solid var(--line);
   border-radius: 8px;

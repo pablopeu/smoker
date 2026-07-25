@@ -151,52 +151,54 @@ function openingHtml() {
     <div class="result-line">${t('opening.height')}: <strong id="out-rect-height">—</strong></div>
   </div>
 
-  <div class="subblock split-sub">
-    <div class="sub-text">
-      <h3>${t('opening.segment')}</h3>
-      <div class="result-line hint" id="out-seg-oncc">—</div>
-      <div class="slider-box">
-        <div class="slider-box-head">
-          <span>${t('opening.cutHeight')} (h)</span>
-          <strong id="out-seg-h">—</strong>
+  <div class="subblock-row" id="opening-sub-row">
+    <div class="subblock split-sub">
+      <div class="sub-text">
+        <h3>${t('opening.segment')}</h3>
+        <div class="result-line hint" id="out-seg-oncc">—</div>
+        <div class="slider-box">
+          <div class="slider-box-head">
+            <span>${t('opening.cutHeight')} (h)</span>
+            <strong id="out-seg-h">—</strong>
+          </div>
+          <input id="in-seg-height" type="range" min="0" max="24" step="0.5" aria-label="${t('opening.cutHeight')}">
+          <div class="slider-verdict" id="out-seg-ok">—</div>
         </div>
-        <input id="in-seg-height" type="range" min="0" max="24" step="0.5" aria-label="${t('opening.cutHeight')}">
-        <div class="slider-verdict" id="out-seg-ok">—</div>
+        <div class="seg-readouts">
+          <div class="result-line">${t('opening.area')}: <strong id="out-seg-area">—</strong></div>
+          <div class="result-line" id="out-seg-eff-width-line">${t('opening.effWidth')}: <strong id="out-seg-eff-width">—</strong></div>
+          <div class="result-line">${t('opening.neededHeight')}: <strong id="out-seg-needed">—</strong></div>
+        </div>
       </div>
-      <div class="seg-readouts">
-        <div class="result-line">${t('opening.area')}: <strong id="out-seg-area">—</strong></div>
-        <div class="result-line" id="out-seg-eff-width-line">${t('opening.effWidth')}: <strong id="out-seg-eff-width">—</strong></div>
-        <div class="result-line">${t('opening.neededHeight')}: <strong id="out-seg-needed">—</strong></div>
+      <div class="sub-drawing">
+        <div id="seg-svg" class="diag-wrap"></div>
       </div>
     </div>
-    <div class="sub-drawing">
-      <div id="seg-svg" class="diag-wrap"></div>
-    </div>
-  </div>
 
-  <div class="subblock split-sub" id="football-block">
-    <div class="sub-text">
-      <h3>${t('opening.football')}</h3>
-      <div class="result-line hint">${t('opening.footballHint')}</div>
-      <div class="result-line hint" id="out-football-radius">—</div>
-      <div class="slider-box">
-        <div class="slider-box-head">
-          <span>${t('opening.cutHeightCap')} (h)</span>
-          <strong id="out-football-h">—</strong>
+    <div class="subblock split-sub" id="football-block">
+      <div class="sub-text">
+        <h3>${t('opening.football')}</h3>
+        <div class="result-line hint">${t('opening.footballHint')}</div>
+        <div class="result-line hint" id="out-football-radius">—</div>
+        <div class="slider-box">
+          <div class="slider-box-head">
+            <span>${t('opening.cutHeightCap')} (h)</span>
+            <strong id="out-football-h">—</strong>
+          </div>
+          <input id="in-football-h" type="range" min="0" max="12" step="0.5" aria-label="${t('opening.cutHeightCap')}">
+          <div class="slider-verdict" id="out-football-ok">—</div>
         </div>
-        <input id="in-football-h" type="range" min="0" max="12" step="0.5" aria-label="${t('opening.cutHeightCap')}">
-        <div class="slider-verdict" id="out-football-ok">—</div>
+        <div class="seg-readouts">
+          <div class="result-line">${t('opening.footballArea')}: <strong id="out-football-area">—</strong></div>
+          <div class="result-line" id="out-fb-eff-width-line">${t('opening.effWidth')}: <strong id="out-fb-eff-width">—</strong></div>
+          <div class="result-line">${t('opening.footballTotalH')}: <strong id="out-football-totalh">—</strong></div>
+          <div class="result-line">${t('opening.footballWidth')}: <strong id="out-football-width">—</strong></div>
+          <div class="result-line">${t('opening.footballNeeded')}: <strong id="out-football-needed">—</strong></div>
+        </div>
       </div>
-      <div class="seg-readouts">
-        <div class="result-line">${t('opening.footballArea')}: <strong id="out-football-area">—</strong></div>
-        <div class="result-line" id="out-fb-eff-width-line">${t('opening.effWidth')}: <strong id="out-fb-eff-width">—</strong></div>
-        <div class="result-line">${t('opening.footballTotalH')}: <strong id="out-football-totalh">—</strong></div>
-        <div class="result-line">${t('opening.footballWidth')}: <strong id="out-football-width">—</strong></div>
-        <div class="result-line">${t('opening.footballNeeded')}: <strong id="out-football-needed">—</strong></div>
+      <div class="sub-drawing">
+        <div id="football-svg" class="diag-wrap"></div>
       </div>
-    </div>
-    <div class="sub-drawing">
-      <div id="football-svg" class="diag-wrap"></div>
     </div>
   </div>`;
 }
