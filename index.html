@@ -36,19 +36,21 @@
     </div>
   </header>
 
-  <main class="layout">
-    <div id="sections" class="sections"></div>
-    <aside id="sidebar" class="sidebar" aria-label="Resultados"></aside>
-  </main>
+  <table class="print-frame"><tbody><tr><td>
+    <main class="layout">
+      <div id="sections" class="sections"></div>
+      <aside id="sidebar" class="sidebar" aria-label="Resultados"></aside>
+    </main>
 
-  <footer class="footer">
-    <p data-i18n="footer.note">Calculadora técnica para validar dimensiones. No reemplaza el sentido común ni la experiencia: las desviaciones de hasta ±15% se toleran.</p>
-    <p class="credit" data-i18n="footer.credit">Basada en el trabajo de DaveOmak y otros en SmokingMeatForums. Proyecto sin fines comerciales.</p>
-  </footer>
+    <footer class="footer">
+      <p data-i18n="footer.note">Calculadora técnica para validar dimensiones. No reemplaza el sentido común ni la experiencia: las desviaciones de hasta ±15% se toleran.</p>
+      <p class="credit" data-i18n="footer.credit">Basada en el trabajo de DaveOmak y otros en SmokingMeatForums. Proyecto sin fines comerciales.</p>
+    </footer>
+  </td></tr></tbody>
+    <tfoot><tr><td class="repeat-foot">peu.net/smoker</td></tr></tfoot>
+  </table>
 
   <div id="modal-root" aria-live="polite"></div>
-
-  <div class="print-footer">peu.net/smoker</div>
 
   <script type="module" src="/src/main.js"></script>
 </body>

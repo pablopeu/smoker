@@ -47,7 +47,10 @@ p { margin: 0; }
 /* ---------- Footer de impresión ---------- */
 /* Oculto en pantalla; en print queda fijo al pie de cada página (Chromium repite
    los position:fixed en todas las hojas). */
-.print-footer { display: none; }
+/* .print-frame solo es "tabla" al imprimir; en pantalla es transparente
+   (todo block) para no alterar el layout. El <tfoot> lleva el footer repetido. */
+.print-frame, .print-frame tbody, .print-frame tfoot, .print-frame tr, .print-frame td { display: block; }
+.print-frame tfoot { display: none; }
 
 /* ---------- Topbar ---------- */
 .topbar {
@@ -398,10 +401,15 @@ a.subtitle:hover { color: #fff; text-decoration: underline; }
   /* Créditos completos al final del contenido (última página), como en la web */
   .footer { display: block !important; max-width: none; margin: 14px 0 0; padding: 6px 0 0; border-top: 1.5px solid #000; color: #000; font-size: 10px; }
   .footer .credit { font-style: normal; color: #000; }
-  /* Dirección al pie de CADA página. position:fixed se repite en todas las hojas;
-     con bottom negativo cae en la banda del margen inferior del @page (donde el
-     contenido no llega), así no se superpone al texto. */
-  .print-footer { display: block; position: fixed; bottom: 0; left: 0; right: 0; text-align: center; font-size: 10px; color: #000; border-top: 1px solid #000; padding: 3px 0; }
+  /* Dirección al pie de CADA página: el <tfoot> de .print-frame se repite
+     automáticamente en cada hoja (estándar y confiable en Chrome/Firefox/Edge,
+     a diferencia de position:fixed). El contenido va en <tbody> y no se pisa. */
+  .print-frame { display: table !important; width: 100%; }
+  .print-frame > tbody { display: table-row-group !important; }
+  .print-frame > tbody > tr, .print-frame > tfoot > tr { display: table-row !important; }
+  .print-frame > tbody > tr > td, .print-frame > tfoot > tr > td { display: table-cell !important; }
+  .print-frame > tfoot { display: table-footer-group !important; }
+  .repeat-foot { text-align: center; font-size: 10px; color: #000; border-top: 1px solid #000; padding: 3px 0; }
   .subblock-row, .split-sub { flex-direction: column !important; }
   .sub-text, .sub-drawing { max-width: 100% !important; flex: none !important; }
   input[type="range"] { display: none !important; }
