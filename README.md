@@ -1,6 +1,10 @@
 # Offset Smoker Calculator / Calculadora de Offset Smoker
 
 <p align="center">
+  <a href="https://peu.net/smoker/">🌐 Live version · Versión online</a>
+</p>
+
+<p align="center">
   <a href="#english">📖 English Readme</a> · <a href="#español">📖 Readme Español</a>
 </p>
 
