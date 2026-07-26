@@ -388,15 +388,20 @@ a.subtitle:hover { color: #fff; text-decoration: underline; }
    ya está en las secciones). */
 @page { margin: 14mm; }
 @media print {
-  .topbar-controls, .lang-switch, .footer, .help-btn, .sidebar, .no-print { display: none !important; }
+  .topbar-controls, .lang-switch, .help-btn, .sidebar, .no-print { display: none !important; }
   .topbar { position: static; background: #fff; color: #000; border-bottom: 2px solid #000; padding: 4px 0; }
   .topbar h1 { font-size: 16px; }
   .topbar-logo { filter: none; height: 26px; }
   .subtitle { color: #444; }
-  .print-footer { display: block; position: fixed; bottom: 0; left: 0; right: 0; text-align: center; font-size: 10px; color: #555; border-top: 1px solid #999; padding: 3px 0; }
   body { background: #fff; font-size: 12px; }
   .layout, .sections { display: block !important; max-width: none; margin: 0; padding: 0; gap: 0; }
-  .sections { display: block !important; }
+  /* Créditos completos al final del contenido (última página), como en la web */
+  .footer { display: block !important; max-width: none; margin: 14px 0 0; padding: 6px 0 0; border-top: 1.5px solid #000; color: #000; font-size: 10px; }
+  .footer .credit { font-style: normal; color: #000; }
+  /* Dirección al pie de CADA página. position:fixed se repite en todas las hojas;
+     con bottom negativo cae en la banda del margen inferior del @page (donde el
+     contenido no llega), así no se superpone al texto. */
+  .print-footer { display: block; position: fixed; bottom: 0; left: 0; right: 0; text-align: center; font-size: 10px; color: #000; border-top: 1px solid #000; padding: 3px 0; }
   .subblock-row, .split-sub { flex-direction: column !important; }
   .sub-text, .sub-drawing { max-width: 100% !important; flex: none !important; }
   input[type="range"] { display: none !important; }
