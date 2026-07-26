@@ -389,7 +389,7 @@ a.subtitle:hover { color: #fff; text-decoration: underline; }
 /* Hoja de taller completa: TODAS las secciones (entradas + resultados + diagramas),
    una sola columna, B&W nítido. Se oculta el cromo interactivo y el sidebar (la data
    ya está en las secciones). */
-@page { margin: 14mm; }
+@page { margin: 14mm 14mm 22mm 14mm; }
 @media print {
   .topbar-controls, .lang-switch, .help-btn, .sidebar, .no-print { display: none !important; }
   .topbar { position: static; background: #fff; color: #000; border-bottom: 2px solid #000; padding: 4px 0; }
@@ -409,7 +409,7 @@ a.subtitle:hover { color: #fff; text-decoration: underline; }
   .print-frame > tbody > tr, .print-frame > tfoot > tr { display: table-row !important; }
   .print-frame > tbody > tr > td, .print-frame > tfoot > tr > td { display: table-cell !important; }
   .print-frame > tfoot { display: table-footer-group !important; }
-  .repeat-foot { text-align: center; font-size: 10px; color: #000; border-top: 1px solid #000; padding: 3px 0; }
+  .repeat-foot { text-align: center; font-size: 13px; font-weight: 650; color: #000; border-top: 1px solid #000; padding: 4px 0; }
   .subblock-row, .split-sub { flex-direction: column !important; }
   .sub-text, .sub-drawing { max-width: 100% !important; flex: none !important; }
   input[type="range"] { display: none !important; }
